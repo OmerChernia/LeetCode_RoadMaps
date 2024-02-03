@@ -7,11 +7,17 @@ class TreeNode(object):
 class Solution(object):
     def diameterOfBinaryTree(self, root):
 
-        if root is None:
-            return 0
+        def depth(node):
+            if not node:
+                return 0
 
-        else:
-            l_sum = 1+ self.diameterOfBinaryTree(root.left)
-            r_sum = 1+ self.diameterOfBinaryTree(root.right)
+            left_depth = depth(node.left)
+            right_depth = depth(node.right)
 
-            return 1+ max(l_sum, r_sum)
+            self.diameter = max(self.diameter, left_depth + right_depth)
+
+            return 1 + max(left_depth, right_depth)
+
+        self.diameter = 0
+        depth(root)
+        return self.diameter
